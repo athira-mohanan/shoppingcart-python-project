@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item dropdown {% if 'shopcartapp' in request.path %} active {% endif %}">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Shop
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'shopcartapp:allProdCat' %}">All Products</a></li>
+              {% for cat in links %}
+            <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.cat_name}}</a></li>
+              {% endfor %}
+          </ul>
+        </li>
+          {% if item_count > 0 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'cartapp:cart_detail' %}"><i class="fa-solid fa-cart-shopping"></i>({{item_count}})</a>
+        </li>
+          {% endif %}
+      </ul>
+      <form class="d-flex" role="search" action="{% url 'searchapp:searchResult' %}" method="get">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>
+
